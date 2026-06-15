@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Proqualitas × Forus — Roadmap CX 100 Días</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── TOKENS DE DISEÑO ─────────────────────────────── */
+    :root {
+      --navy:          #0C1A29;
+      --navy-mid:      #112030;
+      --gold:          #E8A020;
+      --teal:          #1B9AAA;
+      --cream:         #F4EFE6;
+      --white:         #FFFFFF;
+      --text-dark:     #0C1A29;
+      --text-body:     #374151;
+      --text-muted:    #8A9BB0;
+      --border-dark:   rgba(255,255,255,0.08);
+      --border-gold:   rgba(232,160,32,0.25);
+
+      --ff-display:    'Space Grotesk', system-ui, sans-serif;
+      --ff-body:       'Inter', system-ui, sans-serif;
+
+      --max-w:         1100px;
+      --gap:           2rem;
+      --py:            6rem;
+    }
+
+    /* ─── RESET ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { font-size: 16px; scroll-behavior: smooth; }
+    body  {
+      font-family: var(--ff-body);
+      background: var(--white);
+      color: var(--text-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── ACCESIBILIDAD ────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ─── LAYOUT ───────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--gap);
+    }
+
+    /* ─── HEADER / NAV ─────────────────────────────────── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(12,26,41,0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .nav__brand {
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav__brand span { color: var(--gold); }
+    .nav__meta {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .nav__cta {
+      font-family: var(--ff-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 0.6rem 1.25rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .nav__cta:hover { opacity: 0.85; }
+
+    /* ─── HERO ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(27,154,170,0.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      padding: 7rem 0 5rem;
+    }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero__eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+    .hero__heading {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: clamp(3rem, 7.5vw, 7rem);
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+    .hero__heading em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero__sub {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+    .hero__sub strong { color: var(--white); font-weight: 500; }
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 1rem 2.25rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block;
+      font-family: var(--ff-display);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .btn-ghost:hover { color: var(--white); }
+
+    /* ─── TOKENS TIPOGRÁFICOS DE SECCIÓN ───────────────── */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: clamp(1.875rem, 4vw, 3.25rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .section-title--light { color: var(--white); }
+    .section-title--dark  { color: var(--text-dark); }
+    .section-sub {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 620px;
+      margin-top: 1rem;
+    }
+
+    /* ─── BRECHA ────────────────────────────────────────── */
+    .brecha {
+      background: var(--cream);
+      padding: var(--py) 0;
+    }
+    .brecha__header { margin-bottom: 3.5rem; }
+    .brecha__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .gap-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2.5rem;
+      border: 1px solid rgba(12,26,41,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .gap-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .gap-card--a::after { background: var(--gold); }
+    .gap-card--b::after { background: var(--teal); }
+    .gap-card__nums {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .gap-card__num {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .gap-card--a .gap-card__num--hi { font-size: clamp(3rem, 6vw, 5rem); color: var(--gold); }
+    .gap-card--a .gap-card__num--lo { font-size: clamp(2rem, 4vw, 3.5rem); color: rgba(232,160,32,0.25); }
+    .gap-card--b .gap-card__num--hi { font-size: clamp(3rem, 6vw, 5rem); color: var(--teal); }
+    .gap-card--b .gap-card__num--lo { font-size: clamp(2rem, 4vw, 3.5rem); color: rgba(27,154,170,0.25); }
+    .gap-card__label {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+    .gap-card__label strong { font-weight: 600; color: var(--text-dark); }
+    .gap-card__source {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 1.25rem;
+    }
+    .brecha__note {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 1.75rem 2.25rem;
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.65;
+    }
+    .brecha__note strong { color: var(--gold); font-weight: 600; }
+
+    /* ─── RIESGO / CX FANTASMA ──────────────────────────── */
+    .riesgo {
+      background: var(--navy-mid);
+      padding: var(--py) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .riesgo__bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: clamp(8rem, 20vw, 22rem);
+      color: rgba(255,255,255,0.025);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .riesgo__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .riesgo__stat {
+      margin-top: 2.5rem;
+      padding: 1.75rem 2rem;
+      background: rgba(232,160,32,0.08);
+      border: 1px solid var(--border-gold);
+      border-radius: 10px;
+    }
+    .riesgo__stat-num {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: clamp(3rem, 7vw, 5rem);
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .riesgo__stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+    .riesgo__drivers { display: flex; flex-direction: column; gap: 1.5rem; }
+    .driver {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .driver__icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(27,154,170,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .driver__icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--teal);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .driver__body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .driver__body strong {
+      display: block;
+      color: var(--white);
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ─── PLAN 100 DÍAS ─────────────────────────────────── */
+    .plan {
+      background: var(--white);
+      padding: var(--py) 0;
+    }
+    .plan__header { margin-bottom: 4rem; }
+    .plan__timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      position: relative;
+    }
+    .plan__timeline::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: calc(100% / 6);
+      right: calc(100% / 6);
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      z-index: 0;
+    }
+    .phase-card {
+      padding: 0 1.5rem 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .phase-card__marker {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--white);
+      margin: 0 auto 2rem;
+    }
+    .phase-card:nth-child(1) .phase-card__marker { background: var(--gold); }
+    .phase-card:nth-child(2) .phase-card__marker { background: var(--teal); }
+    .phase-card:nth-child(3) .phase-card__marker {
+      background: var(--navy);
+      border: 2px solid var(--teal);
+    }
+    .phase-card__days {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+    .phase-card__title {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+      text-align: center;
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+    .phase-card__body {
+      font-size: 0.875rem;
+      color: var(--text-body);
+      line-height: 1.65;
+      text-align: center;
+    }
+    .phase-card__kpi {
+      margin-top: 1.5rem;
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 0.875rem 1rem;
+      font-size: 0.78rem;
+      color: var(--text-dark);
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .phase-card__kpi small {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 0.25rem;
+    }
+
+    /* ─── CREDENCIALES ──────────────────────────────────── */
+    .credenciales {
+      background: var(--navy);
+      padding: var(--py) 0;
+    }
+    .credenciales__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .cred-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 2rem;
+      transition: border-color 0.2s ease;
+    }
+    .cred-card:hover { border-color: rgba(232,160,32,0.3); }
+    .cred-card__num {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 3rem;
+      color: var(--gold);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .cred-card__label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .credenciales__quote {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border-dark);
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-style: italic;
+    }
+    .credenciales__quote strong {
+      color: var(--white);
+      font-style: normal;
+    }
+
+    /* ─── CTA / CONTACTO ────────────────────────────────── */
+    .contacto {
+      background: var(--cream);
+      padding: var(--py) 0;
+    }
+    .contacto__inner { max-width: 680px; }
+    .contacto__title {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: clamp(2.25rem, 5vw, 4rem);
+      color: var(--text-dark);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+    }
+    .contacto__title em { font-style: normal; color: var(--teal); }
+    .contacto__sub {
+      font-size: 1.05rem;
+      color: var(--text-body);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+    .contacto__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-secondary {
+      display: inline-block;
+      font-family: var(--ff-display);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: transparent;
+      padding: 0.9rem 1.75rem;
+      border-radius: 4px;
+      text-decoration: none;
+      border: 1.5px solid rgba(12,26,41,0.3);
+      transition: border-color 0.2s ease;
+    }
+    .btn-secondary:hover { border-color: var(--navy); }
+
+    /* ─── FOOTER ────────────────────────────────────────── */
+    .site-footer {
+      background: var(--navy);
+      padding: 2rem;
+      border-top: 1px solid var(--border-dark);
+    }
+    .footer__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer__brand {
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .footer__brand span { color: var(--gold); }
+    .footer__disclaimer {
+      font-size: 0.68rem;
+      color: rgba(138,155,176,0.5);
+      max-width: 460px;
+      line-height: 1.5;
+      text-align: right;
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 768px) {
+      :root { --py: 4rem; }
+      .nav__meta            { display: none; }
+      .brecha__grid         { grid-template-columns: 1fr; }
+      .riesgo__inner        { grid-template-columns: 1fr; }
+      .credenciales__grid   { grid-template-columns: 1fr; }
+      .plan__timeline       { grid-template-columns: 1fr; gap: 1.5rem; }
+      .plan__timeline::before { display: none; }
+      .phase-card {
+        padding: 1.5rem;
+        border-left: 3px solid;
+        border-radius: 0 10px 10px 0;
+        background: var(--cream);
+      }
+      .phase-card:nth-child(1) { border-color: var(--gold); }
+      .phase-card:nth-child(2) { border-color: var(--teal); }
+      .phase-card:nth-child(3) { border-color: var(--navy); }
+      .phase-card__marker { display: none; }
+      .phase-card__days,
+      .phase-card__title,
+      .phase-card__body,
+      .phase-card__kpi { text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+      .contacto__actions { flex-direction: column; align-items: flex-start; }
+      .footer__disclaimer { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html             { scroll-behavior: auto; }
+      .btn-primary:hover { transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── NAV: identificación de marca y acceso rápido al CTA ─── -->
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#hero" class="nav__brand" aria-label="Proqualitas – Inicio">
+        Pro<span>qualitas</span>
+      </a>
+      <span class="nav__meta" aria-label="Documento confidencial para Forus S.A.">
+        Confidencial · Forus S.A.
+      </span>
+      <a href="#contacto" class="nav__cta">Agendar reunión</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ─── HERO: apertura personalizada con el problema nombrado ─── -->
+    <section class="hero" id="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero__inner">
+          <p class="hero__eyebrow">
+            Para Dominga Arteaga · Experience Leader, Forus S.A.
+          </p>
+          <h1 class="hero__heading" id="hero-heading">
+            El riesgo del<br>
+            <em>CX Fantasma</em><br>
+            ya tiene nombre.
+          </h1>
+          <p class="hero__sub">
+            El nuevo ERP y el Centro de Distribución ENEA van a hacer más rápida
+            la operación de Forus. <strong>Lo que no resuelven es lo que el cliente siente
+            cuando entra a una tienda.</strong> Eso depende de tu cultura interna.
+            Aquí está el roadmap para blindarlo en 100 días.
+          </p>
+          <div class="hero__actions">
+            <a href="#plan" class="btn-primary">Ver el plan de 100 días</a>
+            <a href="#brecha" class="btn-ghost">Conocer los datos →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── BRECHA: evidencia cuantitativa de los dos gaps activos ─── -->
+    <section class="brecha" id="brecha" aria-labelledby="brecha-heading">
+      <div class="container">
+        <div class="brecha__header">
+          <p class="section-label">La brecha invisible</p>
+          <h2 class="section-title section-title--dark" id="brecha-heading">
+            Lo que Forus cree<br>vs. lo que el cliente vive.
+          </h2>
+          <p class="section-sub" style="color: var(--text-body);">
+            Dos brechas activas que amenazan el crecimiento del 7,4% en ingresos
+            consolidados que Forus está proyectando para este año.
+          </p>
+        </div>
+
+        <div class="brecha__grid" role="list" aria-label="Brechas detectadas en retail">
+
+          <!-- Brecha 1: Ilusión de lealtad -->
+          <article class="gap-card gap-card--a" role="listitem">
+            <div class="gap-card__nums"
+                 aria-label="90% de ejecutivos creen que la lealtad aumentó; solo 40% de consumidores lo confirma">
+              <span class="gap-card__num gap-card__num--hi" aria-hidden="true">90%</span>
+              <span class="gap-card__num gap-card__num--lo" aria-hidden="true">40%</span>
+            </div>
+            <p class="gap-card__label">
+              <strong>Ilusión de lealtad:</strong> el 90% de los ejecutivos del
+              sector cree que la fidelidad de sus clientes aumentó. Solo el 40%
+              de los consumidores reales lo confirma.
+            </p>
+            <p class="gap-card__source">Fuente: PwC Consumer Intelligence Series</p>
+          </article>
+
+          <!-- Brecha 2: Filtro cultural interno -->
+          <article class="gap-card gap-card--b" role="listitem">
+            <div class="gap-card__nums"
+                 aria-label="51% madurez de gestión al cliente vs 37% desarrollo de personas">
+              <span class="gap-card__num gap-card__num--hi" aria-hidden="true">51%</span>
+              <span class="gap-card__num gap-card__num--lo" aria-hidden="true">37%</span>
+            </div>
+            <p class="gap-card__label">
+              <strong>Filtro cultural interno:</strong> 14 puntos de brecha entre
+              la madurez de gestión hacia el cliente (51%) y el desarrollo real
+              de personas (37%) según el último estudio de Transformación Cultural.
+            </p>
+            <p class="gap-card__source">Fuente: Estudio Transformación Cultural 2026</p>
+          </article>
+
+        </div>
+
+        <p class="brecha__note" role="note">
+          El cliente de Forus nunca experimenta tu estrategia.
+          <strong>Experimenta la cultura de tu organización.</strong>
+          Y hoy, el 40% de tus colaboradores de primera línea
+          no conoce el sello de servicio de la empresa.
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── RIESGO: conceptualización del CX Fantasma y sus drivers ─── -->
+    <section class="riesgo" id="riesgo" aria-labelledby="riesgo-heading">
+      <p class="riesgo__bg" aria-hidden="true">FANTASMA</p>
+
+      <div class="container">
+        <div class="riesgo__inner">
+
+          <!-- Columna izquierda: definición del riesgo -->
+          <div>
+            <p class="section-label" style="color: var(--teal);">El riesgo específico</p>
+            <h2 class="section-title section-title--light" id="riesgo-heading">
+              Velocidad técnica<br>sin consistencia humana.
+            </h2>
+            <p class="section-sub" style="color: var(--text-muted); margin-top: 1rem;">
+              El despliegue del ERP en la nube y el ENEA optimizan los indicadores
+              de velocidad logística. Lo que no resuelven es la
+              <strong style="color: var(--white);">experiencia humana en el punto de venta.</strong>
+              Cuando se automatiza la operación sin fortalecer la cultura de servicio,
+              aparece el CX Fantasma: la empresa corre, el cliente se va.
+            </p>
+            <div class="riesgo__stat"
+                 aria-label="Dato: 29% de deserción de clientes por atención deficiente">
+              <p class="riesgo__stat-num" aria-hidden="true">29%</p>
+              <p class="riesgo__stat-label">
+                de deserción de clientes por atención deficiente, incluso cuando
+                los indicadores operativos son positivos. La industria retail lo
+                documenta consistentemente.
+              </p>
+            </div>
+          </div>
+
+          <!-- Columna derecha: drivers del riesgo en Forus -->
+          <div>
+            <p class="section-label" style="color: var(--teal);">Los tres drivers del riesgo en Forus</p>
+            <ul class="riesgo__drivers" aria-label="Factores que generan el riesgo de CX Fantasma">
+
+              <li class="driver">
+                <div class="driver__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                </div>
+                <div class="driver__body">
+                  <strong>Incorporación de nuevas marcas</strong>
+                  Parfois y Vans traen procesos de check-out distintos. Sin un
+                  protocolo unificado de servicio, el cliente percibe inconsistencia.
+                </div>
+              </li>
+
+              <li class="driver">
+                <div class="driver__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </div>
+                <div class="driver__body">
+                  <strong>Marcha blanca del ERP 2026</strong>
+                  Los quiebres de sistema en las primeras semanas generan fricción
+                  en el viaje omnicanal. Sin gobernanza activa, los detractores se acumulan.
+                </div>
+              </li>
+
+              <li class="driver">
+                <div class="driver__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                  </svg>
+                </div>
+                <div class="driver__body">
+                  <strong>Primera línea sin sello activado</strong>
+                  El 40% de los colaboradores no conoce el estándar de servicio.
+                  Ante un error del sistema, improvisan en lugar de recuperar la experiencia.
+                </div>
+              </li>
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PLAN: roadmap de 100 días en tres fases secuenciales ─── -->
+    <section class="plan" id="plan" aria-labelledby="plan-heading">
+      <div class="container">
+        <div class="plan__header">
+          <p class="section-label">Roadmap de bajo riesgo · Decisión rápida</p>
+          <h2 class="section-title section-title--dark" id="plan-heading">
+            Plan operativo de 100 días.
+          </h2>
+          <p class="section-sub" style="color: var(--text-body);">
+            Tres fases que operan en paralelo con la transformación logística de Forus,
+            sin interferir con la operación normal. Soluciones de entrada con entregables
+            concretos en cada etapa.
+          </p>
+        </div>
+
+        <ol class="plan__timeline" aria-label="Fases del plan de 100 días">
+
+          <!-- Fase 1 -->
+          <li class="phase-card">
+            <div class="phase-card__marker" aria-hidden="true">01</div>
+            <p class="phase-card__days">Días 1 — 30</p>
+            <h3 class="phase-card__title">Auditoría de Ecología Operativa</h3>
+            <p class="phase-card__body">
+              Mapeo y observación pasiva de las fricciones reales en el check-out
+              de Parfois y Vans. Medición del Índice de Confianza Transaccional (ICC)
+              en terreno para establecer una línea base real antes de intervenir.
+            </p>
+            <div class="phase-card__kpi">
+              Mapa de fricciones por tienda
+              <small>+ ICC transaccional en línea base</small>
+            </div>
+          </li>
+
+          <!-- Fase 2 -->
+          <li class="phase-card">
+            <div class="phase-card__marker" aria-hidden="true">02</div>
+            <p class="phase-card__days">Días 31 — 60</p>
+            <h3 class="phase-card__title">Mesas de Gobernanza CX</h3>
+            <p class="phase-card__body">
+              Instalación de comités ágiles interáreas: Operaciones, Logística
+              y Tiendas. Procesan detractores y resuelven los quiebres del viaje
+              omnicanal generados por la marcha blanca del ERP antes de que
+              impacten el NPS.
+            </p>
+            <div class="phase-card__kpi">
+              Protocolo de gobernanza activo
+              <small>+ Backlog de quiebres clasificado por severidad</small>
+            </div>
+          </li>
+
+          <!-- Fase 3 -->
+          <li class="phase-card">
+            <div class="phase-card__marker" aria-hidden="true">03</div>
+            <p class="phase-card__days">Días 61 — 100</p>
+            <h3 class="phase-card__title">Power Skills en Primera Línea</h3>
+            <p class="phase-card__body">
+              Entrenamiento de líderes informales de tienda en protocolos de
+              Service Recovery. Protege la recomendación (NPS) y la resolución
+              en primer contacto (FCR) ante fallas del sistema durante la marcha blanca.
+            </p>
+            <div class="phase-card__kpi">
+              Líderes certificados en Service Recovery
+              <small>+ Delta NPS y FCR medido al día 100</small>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- ─── CREDENCIALES: respaldo metodológico de la propuesta ─── -->
+    <section class="credenciales" id="credenciales" aria-labelledby="credenciales-heading">
+      <div class="container">
+        <p class="section-label" style="color: var(--teal);">Por qué Proqualitas</p>
+        <h2 class="section-title section-title--light" id="credenciales-heading">
+          Metodología Coherencia<br>y Experiencia 360°.
+        </h2>
+        <p class="section-sub" style="color: var(--text-muted); margin-top: 1rem; max-width: 540px;">
+          Este roadmap está basado en la misma metodología que usamos para auditar
+          y transformar organizaciones reales en Chile. No es un modelo genérico.
+        </p>
+
+        <div class="credenciales__grid" role="list" aria-label="Credenciales de Proqualitas">
+          <article class="cred-card" role="listitem">
+            <p class="cred-card__num" aria-label="Más de 30 años de experiencia">+30</p>
+            <p class="cred-card__label">
+              Años comprobando que la metodología funciona en organizaciones reales.
+            </p>
+          </article>
+          <article class="cred-card" role="listitem">
+            <p class="cred-card__num" aria-label="Más de 1000 organizaciones auditadas">+1.000</p>
+            <p class="cred-card__label">
+              Organizaciones auditadas con la metodología de Coherencia y Experiencia
+              360° en Chile.
+            </p>
+          </article>
+          <article class="cred-card" role="listitem">
+            <p class="cred-card__num" aria-label="5 certificaciones">5</p>
+            <p class="cred-card__label">
+              Certificaciones que respaldan cada fase, desde el diagnóstico hasta
+              la instalación de capacidades.
+            </p>
+          </article>
+          <article class="cred-card" role="listitem">
+            <p class="cred-card__num" aria-label="4 dimensiones de intervención">4</p>
+            <p class="cred-card__label">
+              Dimensiones de intervención integradas: Diseñamos · Entendemos ·
+              Instalamos · Sostenemos.
+            </p>
+          </article>
+        </div>
+
+        <blockquote class="credenciales__quote">
+          <strong>"El cliente jamás experimenta tu estrategia.</strong>
+          Experimenta la cultura de tu organización.
+          Nuestro trabajo es cerrar esa brecha de forma sostenible."
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ─── CONTACTO: CTA final personalizado con nombre de Dominga ─── -->
+    <section class="contacto" id="contacto" aria-labelledby="contacto-heading">
+      <div class="container">
+        <div class="contacto__inner">
+          <p class="section-label">Siguiente paso</p>
+          <h2 class="contacto__title" id="contacto-heading">
+            ¿Conversamos,<br><em>Dominga?</em>
+          </h2>
+          <p class="contacto__sub">
+            En 45 minutos revisamos el roadmap en detalle, ajustamos el alcance
+            a tu operación actual y definimos el punto de partida.
+            Sin compromisos de entrada.
+          </p>
+          <div class="contacto__actions">
+            <a href="mailto:contacto@proqualitas.cl?subject=Roadmap%20CX%20100%20D%C3%ADas%20%E2%80%93%20Forus&body=Hola%2C%20me%20interesa%20conversar%20sobre%20el%20plan%20de%20100%20d%C3%ADas%20para%20Forus."
+               class="btn-primary"
+               aria-label="Enviar correo a Proqualitas para agendar reunión sobre el roadmap Forus">
+              Agendar reunión
+            </a>
+            <a href="https://www.proqualitas.cl"
+               class="btn-secondary"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Visitar el sitio web de Proqualitas (abre en nueva pestaña)">
+              Ver proqualitas.cl ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER: identificación y cláusula de confidencialidad ─── -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer__inner">
+      <span class="footer__brand">Pro<span>qualitas</span> · Santiago, Chile</span>
+      <p class="footer__disclaimer">
+        Documento de trabajo confidencial. Elaborado exclusivamente para
+        Dominga Arteaga, Experience Leader en Forus S.A. · 2026
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
